@@ -5,22 +5,16 @@ from PIL import Image
 
 
 def classifier(image):
-
     size = 56, 56
-
     # Parameters
-    batch_size = 100
-
     # Network Parameters
     n_input = size[0] * size[1]  # data input (img shape: 28*28)
     n_classes = 3  # total classes (0-9 digits)
-    dropout = 0.75  # Dropout, probability to keep units
 
     # tf Graph input
     x = tf.placeholder(tf.float32, [None, n_input])
     y = tf.placeholder(tf.float32, [None, n_classes])
     keep_prob = tf.placeholder(tf.float32)  # dropout (keep probability)
-
 
     # Create some wrappers for simplicity
     def conv2d(x, W, b, strides=1):
@@ -29,12 +23,10 @@ def classifier(image):
         x = tf.nn.bias_add(x, b)
         return tf.nn.relu(x)
 
-
     def maxpool2d(x, k=2):
         # MaxPool2D wrapper (NOTE: ksize = strides, padding = 'SAME')
         return tf.nn.max_pool(x, ksize=[1, k, k, 1], strides=[1, k, k, 1],
                               padding='SAME')
-
 
     # Create model
     def conv_net(x, weights, biases, dropout):

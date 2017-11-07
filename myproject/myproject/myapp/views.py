@@ -53,8 +53,8 @@ def classify(request):
     img_url 是你上传的图片的路径，下面除了 return 语句之外的语句是你对这个图片做的操作，这是需要重写的部分。
     """
     img = Image.open(img_url)
-    image = img.convert('L').resize((56,56))
-    batch_x = np.fromstring(image.tobytes(), dtype=np.uint8).reshape(1, 56*56)
+    image = img.convert('L').resize((56, 56))
+    batch_x = np.fromstring(image.tobytes(), dtype=np.uint8).reshape(1, 56 * 56)
     batch_x = batch_x * (1. / 255) - 0.5
     prediction_y = recognize_img.classifier(batch_x)
     return HttpResponse(graph_type[prediction_y[0]], content_type="application/json")

@@ -1,4 +1,3 @@
 from django.contrib import admin
-from myproject.myapp.models import Document
+from .models import Document
 admin.site.register(Document)
-# Register your models here.
